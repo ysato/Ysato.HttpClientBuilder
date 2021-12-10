@@ -1,0 +1,72 @@
+{
+    "name": "ysato/http-client-builder",
+    "description": "",
+    "require": {
+        "php": "^7.4",
+        "ext-json": "*",
+        "php-http/client-common": "^2.4",
+        "php-http/discovery": "^1.14",
+        "php-http/httplug": "^2.2",
+        "psr/http-client-implementation": "^1.0"
+    },
+    "require-dev": {
+        "bear/qatools": "^1.9",
+        "composer/composer": "^1.10",
+        "doctrine/coding-standard": "^8.1",
+        "guzzlehttp/guzzle": "^7.3",
+        "roave/security-advisories": "dev-master",
+        "vimeo/psalm": "3.x-dev"
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "Ysato\\HttpClientBuilder\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Ysato\\HttpClientBuilder\\": [
+                "tests/",
+                "tests/Fake"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "scripts": {
+        "test": "phpunit",
+        "tests": [
+            "@cs",
+            "@qa",
+            "@test"
+        ],
+        "coverage": "php -dzend_extension=xdebug.so ./vendor/bin/phpunit --coverage-text --coverage-html=build/coverage --log-junit=build/coverage/junit.xml",
+        "pcov": "php -d pcov.enabled=1 ./vendor/bin/phpunit --coverage-text --coverage-html=build/coverage --log-junit=build/coverage/junit.xml",
+        "cs": "phpcs",
+        "cs-fix": "phpcbf",
+        "qa": [
+            "phpmd src text ./phpmd.xml",
+            "phpstan analyse -c phpstan.neon --no-progress",
+            "psalm --no-progress"
+        ],
+        "metrics": [
+            "@coverage",
+            "phpmetrics --junit=build/coverage/junit.xml --config=./phpmetrics.json"
+        ]
+    },
+    "scripts-descriptions": {
+        "test": "Run unit tests",
+        "tests": "Run tests and quality checks",
+        "coverage": "Generate test coverage report",
+        "pcov": "Generate test coverage report (pcov)",
+        "cs": "Checks the coding standard",
+        "cs-fix": "Fix the coding standard",
+        "qa": "Run quality checks",
+        "metrics": "Build metrics report"
+    },
+    "license": "proprietary"
+}
